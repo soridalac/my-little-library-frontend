@@ -11,6 +11,11 @@ const router = createRouter({
       component: ViewBooks
     },
     {
+      path: '/brittany',
+      name: 'home',
+      component: HomeView
+    },
+    {
       path: '/api/books',
       name: 'add',
       component: () => import('../views/AddBook.vue')
