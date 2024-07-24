@@ -1,10 +1,5 @@
-
-<script setup>
-
-</script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
