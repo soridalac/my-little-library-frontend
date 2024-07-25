@@ -44,7 +44,32 @@
                         <label for="language" class="form-label">Language</label>
                         <input id="language" type="text"  name="language" class="form-control" placeholder="Language" required v-model="book.language" >
                     </div>
-                </div>      
+                </div> 
+                
+                <!--Genre-->
+                <label for="genre" class="form-label">Genre</label>
+                <div class="form-check">
+                    <select v-model="book.genre">
+                        <option disabled value="">Please select one</option>
+                        <option>action and adventure</option>
+                        <option>anthology</option>
+                        <option>classic</option>
+                        <option>drama</option>
+                        <option>fantasy</option>
+                        <option>graphic novel</option>
+                        <option>historical fiction</option>
+                        <option>horror</option>
+                        <option>poetry</option>
+                        <option>romance</option>
+                        <option>mystery</option>
+                        <option>science fiction</option>
+                        <option>short story</option>
+                        <option>thriller</option>
+                        <option>western</option>
+                        <option>young adult</option>
+                        <option>others</option>
+                    </select>
+                </div>
                 
                 <div class="row">
                     <div class="col-md-12 form-group">
@@ -102,7 +127,7 @@ export default {
 
         },
         updateBook(){
-            fetch(`http://localhost:8080/api/books`, {
+            fetch(`http://localhost:8080/api/books/${this.$route.params.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

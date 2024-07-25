@@ -50,7 +50,7 @@
                 <!--Genre-->
                 <label for="genre" class="form-label">Genre</label>
                 <div class="form-check">
-                    <select required v-model="book.genre">
+                    <select v-model="book.genre">
                         <option disabled value="">Please select one</option>
                         <option>action and adventure</option>
                         <option>anthology</option>
@@ -90,9 +90,6 @@
 
 <script>
 import Navbar from '../components/Navbar.vue';
-import { ref } from 'vue'
-
-    const selected = ref('')
 
 
     export default {
