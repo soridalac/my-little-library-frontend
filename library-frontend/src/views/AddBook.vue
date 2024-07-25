@@ -34,8 +34,8 @@
                 <!--Published Year-->
                 <div class="row">
                     <div class="col-md-12 form-group mb-3">
-                        <label for="published_year" class="form-label">Published Year</label>
-                        <input id="published_year" type="published_year"  name="published_year" class="form-control" placeholder="Published Year" required v-model="book.published_year" >
+                        <label for="publishedYear" class="form-label">Published Year</label>
+                        <input id="publishedYear" type="text"  name="publishedYear" class="form-control" placeholder="Published Year" required v-model="book.publishedYear" >
                     </div>
                     </div>
 
@@ -108,7 +108,7 @@ import { ref } from 'vue'
                     author: '',
                     genre: '',
                     description: '',
-                    published_year: '',
+                    publishedYear: '',
                     language: '',
 
                 }
