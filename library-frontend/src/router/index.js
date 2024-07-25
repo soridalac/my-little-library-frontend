@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/api/books',
       name: 'add',
       component: () => import('../views/AddBook.vue')
+    },
+    {
+      path: '/api/books/:id',
+      name: 'edit',
+      component: () => import('../views/UpdateBook.vue')
     }
   ]
 })
