@@ -53,7 +53,6 @@
 
 
 <script>
-import { searchBooks } from '@/services/bookList';
 import Navbar from '../components/Navbar.vue'
 
 export default {
@@ -90,7 +89,11 @@ export default {
                 })
         },
         async search(searchText) {
-            const result = await searchBooks(searchText);
+            const result = await fetch(
+                `http://localhost:8080/api/books/search?title=${searchText}`
+            );
+
+            this.books = await result.json();
         },
     }
 
