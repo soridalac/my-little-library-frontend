@@ -28,13 +28,13 @@
                             <td>{{book.title}}</td>
                             <td>{{book.author}}</td>
                             <td>{{book.description}}</td>
-                            <td>{{book.published_year}}</td>
+                            <td>{{book.publishedYear}}</td>
                             <td>{{book.genre}}</td>
                             <td>{{book.language}}</td>
-                                <td>
-                                    <a class="btn btn-primary" :href="`/edit/${book.id}`">Edit</a>
-                                    <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
-                                </td>
+                            <td>
+                                <a class="btn btn-primary" :href="`/api/books/${book.id}`">Edit</a>
+                                <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
+                            </td>
                             </tr>
                         </tbody>
                     </table>
