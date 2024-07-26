@@ -7,15 +7,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">View Book</h1>
+                    <form class="row justify-content-center" @submit.prevent="search(searchText)">
 
                     <!--Search button -->
-                    <form @submit.prevent="search(searchText)">
-                        <input v-model="searchText" required placeholder="Please input the book name">
-                        <button class="btn btn-primary">Search</button>
-                    </form>
-
+                        <input class="col-3 m-2" v-model="searchText" required placeholder="Please input the book name">
+                        <button class="btn btn-primary col-2 m-2">Search</button>
+                   
                     <!--Add button -->
-                    <a href="/api/books" class="btn btn-primary">Add Book</a>
+                    <a href="/api/books" class="btn btn-primary col-2 m-2">Add Book</a>
+                 </form>
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
