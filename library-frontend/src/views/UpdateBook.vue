@@ -8,8 +8,8 @@
                 <!--Title-->
                 <div class="row">
                     <div class="col-md-12 form-group mb-3">
-                    <label for="title" class="form-label">Name</label>
-                    <input id="title"  type="text" name="title" class="form-control" placeholder="Name" required v-model="book.name">
+                    <label for="title" class="form-label">Title</label>
+                    <input id="title"  type="text" name="title" class="form-control" placeholder="Name" required v-model="book.title">
                     </div>
                 </div>
 
