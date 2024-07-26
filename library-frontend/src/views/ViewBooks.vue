@@ -7,8 +7,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">View Book</h1>
+
+                    <!--Search button -->
+                    <form @submit.prevent="search(searchText)">
+                        <input v-model="searchText" required placeholder="Please input the book name">
+                        <button class="btn btn-primary">Search</button>
+                    </form>
+
                     <!--Add button -->
-                    <button @click="search">SEARCH</button>
                     <a href="/api/books" class="btn btn-primary">Add Book</a>
                     <table class="table table-striped">
                         <thead>
@@ -31,10 +37,10 @@
                             <td>{{book.publishedYear}}</td>
                             <td>{{book.genre}}</td>
                             <td>{{book.language}}</td>
-                            <td>
-                                <a class="btn btn-primary" :href="`/api/books/${book.id}`">Edit</a>
-                                <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
-                            </td>
+                                <td>
+                                    <a class="btn btn-primary" :href="`/api/books/${book.id}`">Edit</a>
+                                    <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -61,12 +67,12 @@ export default {
         }
     },
 
-        beforeMount(){
+    beforeMount() {
         this.getBooks()
     },
 
     methods: {
-            getBooks(){
+        getBooks() {
             fetch('http://localhost:8080/api/books')
                 .then(res => res.json())
                 .then(data => {
@@ -74,7 +80,7 @@ export default {
                     console.log(data)
                 })
         },
-            deleteBook(id){
+        deleteBook(id) {
             fetch(`http://localhost:8080/api/books/${id}`, {
                 method: 'DELETE'
             })
@@ -82,14 +88,9 @@ export default {
                     console.log(data)
                     this.getBooks()
                 })
-        }, 
-        async search(event) {
-            const result = await searchBooks('test');
-            alert(result);
-            // `event` is the native DOM event
-            if (event) {
-                alert(event.target.tagName)
-            }
+        },
+        async search(searchText) {
+            const result = await searchBooks(searchText);
         },
     }
 
