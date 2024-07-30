@@ -118,7 +118,7 @@ export default {
 
     methods: {
         getBooks(){
-            fetch(`http://localhost:8080/api/books/${this.$route.params.id}`)
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${this.$route.params.id}`)
             .then(res => res.json())
             .then(data => {
                 this.book = data;
@@ -127,7 +127,7 @@ export default {
 
         },
         updateBook(){
-            fetch(`http://localhost:8080/api/books/${this.$route.params.id}`, {
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${this.$route.params.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

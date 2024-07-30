@@ -1,13 +1,25 @@
-const http = require('http');
-const path = require('path');
-const express = require('express');
+/* eslint-disable */
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-let wss;
-let server;
+// Convert import.meta.url to a file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const port = process.env.PORT || 3000;
 const app = express();
-app.use(express.static(path.join(__dirname, './../build')));
 
-server = new http.createServer(app);
+app.use(express.static(path.join(__dirname, 'dist')));
 
-server.on('error', err => console.log('Server error:', err));
-server.listen(process.env.PORT);
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
+});
+
+app.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(`Server started on port: ${port}`);
+  }
+});

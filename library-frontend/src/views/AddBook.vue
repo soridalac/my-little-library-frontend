@@ -114,7 +114,7 @@ import Navbar from '../components/Navbar.vue';
 
         methods: {
             addBook(){
-                fetch('http://localhost:8080/api/books', {
+                fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

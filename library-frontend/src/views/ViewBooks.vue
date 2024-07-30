@@ -73,7 +73,7 @@ export default {
 
     methods: {
         getBooks() {
-            fetch('http://localhost:8080/api/books')
+            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books')
                 .then(res => res.json())
                 .then(data => {
                     this.books = data
@@ -81,7 +81,7 @@ export default {
                 })
         },
         deleteBook(id) {
-            fetch(`http://localhost:8080/api/books/${id}`, {
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${id}`, {
                 method: 'DELETE'
             })
                 .then(data => {
@@ -91,7 +91,7 @@ export default {
         },
         async search(searchText) {
             const result = await fetch(
-                `http://localhost:8080/api/books/search?title=${searchText}`
+                `https://my-little-library-backend-841473d33266.herokuapp.com/api/books/search?title=${searchText}`
             );
 
             this.books = await result.json();
