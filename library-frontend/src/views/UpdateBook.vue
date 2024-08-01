@@ -10,7 +10,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input id="title" type="text" name="title" class="form-control" placeholder="Title" required v-model="book.title" />
+                            <input id="title" type="text" name="title" class="form-control" placeholder="Title" required
+                                v-model="book.title" />
                         </div>
                     </div>
 
@@ -18,7 +19,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="author" class="form-label">Author</label>
-                            <input id="author" type="text" name="author" class="form-control" placeholder="Author" required v-model="book.author" />
+                            <input id="author" type="text" name="author" class="form-control" placeholder="Author"
+                                required v-model="book.author" />
                         </div>
                     </div>
 
@@ -53,7 +55,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <input id="description" type="text" name="description" class="form-control" placeholder="Description" required v-model="book.description" />
+                            <input id="description" type="text" name="description" class="form-control"
+                                placeholder="Description" required v-model="book.description" />
                         </div>
                     </div>
 
@@ -61,7 +64,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="publishedYear" class="form-label">Published Year</label>
-                            <input id="publishedYear" type="text" name="publishedYear" class="form-control" placeholder="Published Year" required v-model="book.publishedYear" />
+                            <input id="publishedYear" type="text" name="publishedYear" class="form-control"
+                                placeholder="Published Year" required v-model="book.publishedYear" />
                         </div>
                     </div>
 
@@ -69,7 +73,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="language" class="form-label">Language</label>
-                            <input id="language" type="text" name="language" class="form-control" placeholder="Language" required v-model="book.language" />
+                            <input id="language" type="text" name="language" class="form-control" placeholder="Language"
+                                required v-model="book.language" />
                         </div>
                     </div>
 
@@ -77,7 +82,8 @@
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="imageFile" class="form-label">Image</label>
-                            <input id="imageFile" type="file" name="imageFile" class="form-control" @change="handleFileUpload" accept="image/*" />
+                            <input id="imageFile" type="file" name="imageFile" class="form-control"
+                                @change="handleFileUpload" accept="image/*" />
                         </div>
                     </div>
 
@@ -120,7 +126,7 @@ export default {
     methods: {
         fetchBook() {
             const bookId = this.$route.params.id;
-            fetch(`http://localhost:8080/api/books/${bookId}`)
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/books/${bookId}`)
                 .then(response => response.json())
                 .then(data => {
                     this.book = data;
@@ -147,7 +153,7 @@ export default {
 
             const bookId = this.$route.params.id;
 
-            fetch(`http://localhost:8080/api/books/${bookId}`, {
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/books/${bookId}`, {
                 method: 'PUT',
                 body: formData
             })

@@ -116,7 +116,7 @@ export default {
                 publishedYear: '',
                 language: '',
             },
-            image: null 
+            image: null
         };
     },
     methods: {
@@ -136,7 +136,7 @@ export default {
                 formData.append('image', this.image);
             }
 
-            fetch('http://localhost:8080/api/books', {
+            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/books', {
                 method: 'POST',
                 body: formData
             })

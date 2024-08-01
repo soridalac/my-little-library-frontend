@@ -12,7 +12,7 @@
                         <!-- Search button -->
                         <input class="col-3 m-2" v-model="searchText" required placeholder="Please input the book name">
                         <button class="btn btn-primary col-2 m-2">Search</button>
-                   
+
                         <!-- Add button -->
                         <a href="/api/books" class="btn btn-primary col-2 m-2">Add Book</a>
                     </form>
@@ -33,12 +33,12 @@
                         <tbody>
                             <tr v-for="book in books" :key="book.id">
                                 <!-- <th scope="row">{{book.id}}</th> -->
-                                <td>{{book.title}}</td>
-                                <td>{{book.author}}</td>
-                                <td>{{book.description}}</td>
-                                <td>{{book.publishedYear}}</td>
-                                <td>{{book.genre}}</td>
-                                <td>{{book.language}}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.description }}</td>
+                                <td>{{ book.publishedYear }}</td>
+                                <td>{{ book.genre }}</td>
+                                <td>{{ book.language }}</td>
                                 <td>
                                     <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
                                 </td>
@@ -76,7 +76,7 @@ export default {
 
     methods: {
         getBooks() {
-            fetch('http://localhost:8080/api/books')
+            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/books')
                 .then(res => res.json())
                 .then(data => {
                     this.books = data
@@ -84,7 +84,7 @@ export default {
                 })
         },
         deleteBook(id) {
-            fetch(`http://localhost:8080/api/books/${id}`, {
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/books/${id}`, {
                 method: 'DELETE'
             })
                 .then(data => {
@@ -94,7 +94,7 @@ export default {
         },
         async search(searchText) {
             const result = await fetch(
-                `http://localhost:8080/api/books/search?title=${searchText}`
+                `https://my-little-library-backend-841473d33266.herokuapp.com/books/search?title=${searchText}`
             );
 
             this.books = await result.json();
