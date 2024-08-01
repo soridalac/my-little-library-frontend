@@ -136,7 +136,7 @@ export default {
                 formData.append('image', this.image);
             }
 
-            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/books', {
+            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books', {
                 method: 'POST',
                 body: formData
             })

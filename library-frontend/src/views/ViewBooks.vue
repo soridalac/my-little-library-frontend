@@ -20,7 +20,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <!-- <th scope="col">ID</th> -->
+                                <!-- <th scope="col">Id</th> -->
                                 <th scope="col">Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Description</th>
@@ -76,7 +76,7 @@ export default {
 
     methods: {
         getBooks() {
-            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/books')
+            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books')
                 .then(res => res.json())
                 .then(data => {
                     this.books = data
@@ -84,7 +84,7 @@ export default {
                 })
         },
         deleteBook(id) {
-            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/books/${id}`, {
+            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${id}`, {
                 method: 'DELETE'
             })
                 .then(data => {
@@ -94,7 +94,7 @@ export default {
         },
         async search(searchText) {
             const result = await fetch(
-                `https://my-little-library-backend-841473d33266.herokuapp.com/books/search?title=${searchText}`
+                `https://my-little-library-backend-841473d33266.herokuapp.com/api/books/search?title=${searchText}`
             );
 
             this.books = await result.json();
