@@ -132,8 +132,8 @@ export default {
                 })
         },
         async suggestBook(book) {
-            this.visibleAiPrompt = `Give me a short summary of ${book.title}, and give me 3 recommendations for books like it`;
-            const aiPrompt = `Give me a short summary of ${book.title} with less than 50 words, formatted in HTML; Additionally give me 3 bullet point recommendations for books like it, do not give me hyperlinks;`
+            this.visibleAiPrompt = `Give me recommendations for books similar to ${book.title}`;
+            const aiPrompt = `Give me 3 bullet point recommendations for books similar to ${book.title} do not give me hyperlinks;`
             const result = await fetch(
                 `${ApiUrl}/api/chat?prompt=${aiPrompt}`
             );
