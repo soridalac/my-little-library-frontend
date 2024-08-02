@@ -133,12 +133,14 @@ export default {
         },
         async suggestBook(book) {
             this.visibleAiPrompt = `Give me a short summary of ${book.title}, and give me 3 recommendations for books like it`;
-            const aiPrompt = `Give me a short summary of ${book.title} with less than 50 words, and give me 3 recommendations for books like it, formatted in HTML;`
+            const aiPrompt = `Give me a short summary of ${book.title} with less than 50 words, and give me 3 recommendations for books like it, formatted in HTML, do not give me hyperlinks;`
             const result = await fetch(
                 `${ApiUrl}/api/chat?prompt=${aiPrompt}`
             );
 
             this.aiResponse = await result.text();
+            this.aiResponse= this.aiResponse.replace('```html','')
+            this.aiResponse= this.aiResponse.replace('```','')
         },
         async search(searchText) {
             const result = await fetch(
