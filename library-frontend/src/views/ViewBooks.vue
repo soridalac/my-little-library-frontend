@@ -9,7 +9,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">AI Summary</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Recommendations</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 @click="clearAi"></button>
                         </div>
@@ -69,7 +69,7 @@
 
                                         <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal" @click="suggestBook(book)">
-                                            AI Summary
+                                            Recommendations
                                         </button>
 
                                         <a class="btn btn-primary mx-2" :href="`/api/books/${book.id}`">Edit</a>
