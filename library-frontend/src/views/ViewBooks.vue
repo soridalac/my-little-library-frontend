@@ -133,7 +133,7 @@ export default {
         },
         async suggestBook(book) {
             this.visibleAiPrompt = `Give me recommendations for books similar to ${book.title}`;
-            const aiPrompt = `Give me 3 bullet point recommendations for books similar to ${book.title} do not give me hyperlinks;`
+            const aiPrompt = `Give me 3 bullet point recommendations formatted in hyper text markup language and for readabilit for books similar to ${book.title} do not give me hyperlinks make title bold;`
             const result = await fetch(
                 `${ApiUrl}/api/chat?prompt=${aiPrompt}`
             );
