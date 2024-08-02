@@ -126,7 +126,7 @@ export default {
     methods: {
         fetchBook() {
             const bookId = this.$route.params.id;
-            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${bookId}`)
+            fetch(`${ApiUrl}/api/books/${bookId}`)
                 .then(response => response.json())
                 .then(data => {
                     this.book = data;
@@ -153,7 +153,7 @@ export default {
 
             const bookId = this.$route.params.id;
 
-            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${bookId}`, {
+            fetch(`${ApiUrl}/api/books/${bookId}`, {
                 method: 'PUT',
                 body: formData
             })

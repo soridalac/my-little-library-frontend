@@ -100,6 +100,7 @@
 
 <script>
 import Navbar from '../components/Navbar.vue';
+import {ApiUrl} from '../constants.js'
 
 export default {
     name: 'AddBook',
@@ -136,7 +137,7 @@ export default {
                 formData.append('image', this.image);
             }
 
-            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books', {
+            fetch(`${ApiUrl}/api/books`, {
                 method: 'POST',
                 body: formData
             })
