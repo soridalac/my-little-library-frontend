@@ -51,11 +51,15 @@
                         </div>
                     </div>
 
-                    <!-- Description -->
+                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" @click="suggestBook(book)">
+                                            AI Book Summary
+                                        </button>
+                    <!-- Ai Summary -->
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <input id="description" type="text" name="description" class="form-control"
+                            <textarea id="description" type="textarea" name="description" class="form-control"
                                 placeholder="Description" required v-model="book.description" />
                         </div>
                     </div>
@@ -100,6 +104,7 @@
 
 <script>
 import Navbar from '../components/Navbar.vue';
+import {ApiUrl} from '../constants.js'
 
 export default {
     name: 'AddBook',
@@ -123,6 +128,17 @@ export default {
         handleFileUpload(event) {
             this.image = event.target.files[0];
         },
+    async suggestBook(book) {
+            // this.visibleAiPrompt = `Give me a short summary of ${book.title}, and give me 3 recommendations for books like it`;
+            const aiPrompt = `Give me a short summary of ${book.title} by ${book.author} with less than 50 words, with no formatting`
+            const result = await fetch(
+                `${ApiUrl}/api/chat?prompt=${aiPrompt}`
+            );
+
+            this.book.description = await result.text();
+            this.book.description= this.book.description.replace('```html','')
+            this.book.description= this.book.description.replace('```','')
+        },
         addBook() {
             const formData = new FormData();
 
@@ -136,7 +152,7 @@ export default {
                 formData.append('image', this.image);
             }
 
-            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books', {
+            fetch(`${ApiUrl}/api/books`, {
                 method: 'POST',
                 body: formData
             })

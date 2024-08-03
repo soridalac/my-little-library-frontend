@@ -4,6 +4,28 @@
 
         <!-- Table-->
         <div class="container">
+            <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Recommendations</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                @click="clearAi"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                {{ visibleAiPrompt }}
+                            </div>
+                            <hr>
+                            <div v-if="!aiResponse" class="spinner-grow text-light" role="status">
+                                <img src="../assets/book.svg" />
+                            </div>
+                            <div v-html="aiResponse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">View Book</h1>
@@ -43,8 +65,17 @@
                                     <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" :href="`/api/books/${book.id}`">Edit</a>
-                                    <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
+                                    <div>
+
+                                        <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" @click="suggestBook(book)">
+                                            Recommendations
+                                        </button>
+
+                                        <a class="btn btn-primary mx-2" :href="`/api/books/${book.id}`">Edit</a>
+
+                                        <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -56,7 +87,9 @@
 </template>
 
 <script>
+import { ApiUrl } from '@/constants';
 import Navbar from '../components/Navbar.vue'
+
 
 export default {
     name: 'ViewBooks',
@@ -66,7 +99,9 @@ export default {
     data() {
         return {
             books: [],
-            searchText: ''
+            searchText: '',
+            visibleAiPrompt: '',
+            aiResponse: ''
         }
     },
 
@@ -76,15 +111,19 @@ export default {
 
     methods: {
         getBooks() {
-            fetch('https://my-little-library-backend-841473d33266.herokuapp.com/api/books')
+            fetch(`${ApiUrl}/api/books`)
                 .then(res => res.json())
                 .then(data => {
                     this.books = data
                     console.log(data)
                 })
         },
+        clearAi() {
+            this.visibleAiPrompt = '';
+            this.aiResponse = '';
+        },
         deleteBook(id) {
-            fetch(`https://my-little-library-backend-841473d33266.herokuapp.com/api/books/${id}`, {
+            fetch(`${ApiUrl}/api/books/${id}`, {
                 method: 'DELETE'
             })
                 .then(data => {
@@ -92,9 +131,20 @@ export default {
                     this.getBooks()
                 })
         },
+        async suggestBook(book) {
+            this.visibleAiPrompt = `Give me recommendations for books similar to ${book.title}`;
+            const aiPrompt = `Give me 3 bullet point recommendations formatted in hyper text markup language and for readabilit for books similar to ${book.title} do not give me hyperlinks make title bold;`
+            const result = await fetch(
+                `${ApiUrl}/api/chat?prompt=${aiPrompt}`
+            );
+
+            this.aiResponse = await result.text();
+            this.aiResponse= this.aiResponse.replace('```html','')
+            this.aiResponse= this.aiResponse.replace('```','')
+        },
         async search(searchText) {
             const result = await fetch(
-                `https://my-little-library-backend-841473d33266.herokuapp.com/api/books/search?title=${searchText}`
+                `${ApiUrl}/api/books/search?title=${searchText}`
             );
 
             this.books = await result.json();
