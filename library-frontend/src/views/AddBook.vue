@@ -93,7 +93,7 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" value="Submit" />
+                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Submit" />
                         </div>
                     </div>
                 </form>
@@ -105,6 +105,8 @@
 <script>
 import Navbar from '../components/Navbar.vue';
 import {ApiUrl} from '../constants.js'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     name: 'AddBook',
@@ -125,6 +127,11 @@ export default {
         };
     },
     methods: {
+        showToat(){
+            toast.success('Now Successfully created!', {
+                autoClose: 3000,
+            });
+        },
         handleFileUpload(event) {
             this.image = event.target.files[0];
         },
