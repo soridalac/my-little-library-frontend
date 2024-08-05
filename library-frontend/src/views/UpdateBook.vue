@@ -100,6 +100,9 @@
 
 <script>
 import Navbar from '../components/Navbar.vue';
+import {ApiUrl} from '../constants.js'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     name: 'UpdateBook',
