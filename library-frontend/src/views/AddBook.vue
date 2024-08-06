@@ -99,7 +99,7 @@
                 </form>
             </div>
         </div>
-    </main>
+    </main> 
 </template>
 
 <script>

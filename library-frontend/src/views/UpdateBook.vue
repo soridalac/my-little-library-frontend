@@ -89,7 +89,7 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" value="Update" />
+                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Update" />
                         </div>
                     </div>
                 </form>
@@ -127,6 +127,11 @@ export default {
         this.fetchBook();
     },
     methods: {
+        showToat(){
+            toast.success('Now Successfully updated!', {
+                autoClose: 3000,
+            });
+        },
         fetchBook() {
             const bookId = this.$route.params.id;
             fetch(`${ApiUrl}/api/books/${bookId}`)
