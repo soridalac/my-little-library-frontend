@@ -74,7 +74,7 @@
 
                                         <a class="btn btn-primary mx-2" :href="`/api/books/${book.id}`">Edit</a>
 
-                                        <button class="btn btn-danger mx-2" @click="deleteBook(book.id), $event => showToat()">Delete</button>
+                                        <button class="btn btn-danger mx-2" type="delete" @click="$event => showToat(deleteBook(book.id))">Delete</button>
                                     </div>
                                 </td>
                             </tr>
