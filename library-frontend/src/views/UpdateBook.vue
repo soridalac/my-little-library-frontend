@@ -129,7 +129,7 @@ export default {
     methods: {
         showToat(){
             toast.success('Now Successfully updated!', {
-                autoClose: 3000,
+                autoClose: 1000,
             });
         },
         fetchBook() {

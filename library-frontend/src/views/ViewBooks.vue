@@ -114,7 +114,7 @@ export default {
     methods: {
         showToat(){
             toast.success('Now Successfully deleted!', {
-                autoClose: 3000,
+                autoClose: 1000,
             });
         },
         getBooks() {

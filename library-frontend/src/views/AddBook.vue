@@ -93,7 +93,7 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit"  value="Submit" />
+                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Submit" />
                         </div>
                     </div>
                 </form>
@@ -129,7 +129,7 @@ export default {
     methods: {
         showToat(){
             toast.success('Now Successfully created!', {
-                autoClose: 3000,
+                autoClose: 1000,
             });
         },
         handleFileUpload(event) {
