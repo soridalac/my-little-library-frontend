@@ -74,7 +74,7 @@
 
                                         <a class="btn btn-primary mx-2" :href="`/api/books/${book.id}`">Edit</a>
 
-                                        <button class="btn btn-danger mx-2" @click="deleteBook(book.id)">Delete</button>
+                                        <button class="btn btn-danger mx-2" @click="deleteBook(book.id), $event => showToat()">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -89,6 +89,8 @@
 <script>
 import { ApiUrl } from '@/constants';
 import Navbar from '../components/Navbar.vue'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 
 export default {
@@ -110,6 +112,11 @@ export default {
     },
 
     methods: {
+        showToat(){
+            toast.success('Now Successfully deleted!', {
+                autoClose: 3000,
+            });
+        },
         getBooks() {
             fetch(`${ApiUrl}/api/books`)
                 .then(res => res.json())
