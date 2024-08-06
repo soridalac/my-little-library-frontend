@@ -93,7 +93,7 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Submit" />
+                            <input class="btn btn-primary w-100" type="submit"  value="Submit" />
                         </div>
                     </div>
                 </form>
