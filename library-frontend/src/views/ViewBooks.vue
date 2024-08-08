@@ -32,7 +32,8 @@
                     <form class="row justify-content-center" @submit.prevent="search(searchText)">
 
                         <!-- Search button -->
-                        <input type="text" class="col-3 m-2" v-model="searchText" required placeholder="Please input the book name">
+                        <input type="text" class="col-3 m-2" v-model="searchText" required
+                            placeholder="Please input the book name">
                         <button class="btn btn-primary col-2 m-2">Search</button>
 
                         <!-- Add button -->
@@ -43,38 +44,47 @@
                         <thead>
                             <tr>
                                 <!-- <th scope="col">Id</th> -->
+                                <th scope="col">Image</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Published Year</th>
                                 <th scope="col">Genre</th>
                                 <th scope="col">Language</th>
-                                <th scope="col">Image</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="book in books" :key="book.id">
                                 <!-- <th scope="row">{{book.id}}</th> -->
+                                <td>
+                                    <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
+                                </td>
                                 <td>{{ book.title }}</td>
                                 <td>{{ book.author }}</td>
                                 <td>{{ book.description }}</td>
                                 <td>{{ book.publishedYear }}</td>
                                 <td>{{ book.genre }}</td>
                                 <td>{{ book.language }}</td>
+                                
                                 <td>
-                                    <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
-                                </td>
-                                <td>
-                                    <div>
-
-                                        <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" @click="suggestBook(book)">
-                                            Recommendations
+                                    <div >
+                                        <button type="button" class="btn btn-primary mx-2 d-flex justify-content-start align-items-center" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" @click="suggestBook(book)" style="width: 130px; margin: 5px"  >
+                                            <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
+                                                src="../assets/book2.svg" />
+                                                Discover
                                         </button>
+                                        <a class="btn btn-primary mx-2 d-flex justify-content-start align-items-center" :href="`/api/books/${book.id}`" style="width: 130px; margin: 5px">
+                                            <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
+                                                src="../assets/pencil.svg" />Edit</a>
 
-                                        <a class="btn btn-primary mx-2" :href="`/api/books/${book.id}`">Edit</a>
+                                        <button class="btn btn-danger mx-2 d-flex justify-content-start align-items-center" type="delete" style="width: 130px; margin: 5px"
+                                            @click="$event => showToast(deleteBook(book.id))">
+                                            <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
+                                                src="../assets/trash.svg" />
+                                            Delete</button>
 
-                                        <button class="btn btn-danger mx-2" type="delete" @click="$event => showToat(deleteBook(book.id))">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -112,7 +122,7 @@ export default {
     },
 
     methods: {
-        showToat(){
+        showToast() {
             toast.success('Now Successfully deleted!', {
                 autoClose: 1000,
             });
@@ -132,22 +142,26 @@ export default {
         deleteBook(id) {
             fetch(`${ApiUrl}/api/books/${id}`, {
                 method: 'DELETE'
+            }).then(data => {
+                console.log(data)
+                this.getBooks()
             })
-                .then(data => {
-                    console.log(data)
-                    this.getBooks()
-                })
         },
         async suggestBook(book) {
             this.visibleAiPrompt = `Give me recommendations for books similar to ${book.title}`;
-            const aiPrompt = `Give me 3 bullet point recommendations formatted in hyper text markup language and for readabilit for books similar to ${book.title} do not give me hyperlinks make title bold;`
+            const aiPrompt = `Provide 3 recommendations in HTML format for books similar to "${book.title}". Ensure readability by following these guidelines:
+            1. Bold the book title.
+            2. Exclude hyperlinks.
+            3. Only display the book content.
+            4. Dont change format, keep the same every click
+            5. only show bullet point content`;
             const result = await fetch(
                 `${ApiUrl}/api/chat?prompt=${aiPrompt}`
             );
 
             this.aiResponse = await result.text();
-            this.aiResponse= this.aiResponse.replace('```html','')
-            this.aiResponse= this.aiResponse.replace('```','')
+            this.aiResponse = this.aiResponse.replace('```html', '')
+            this.aiResponse = this.aiResponse.replace('```', '')
         },
         async search(searchText) {
             const result = await fetch(

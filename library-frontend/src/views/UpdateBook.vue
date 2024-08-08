@@ -50,6 +50,21 @@
                             </select>
                         </div>
                     </div>
+                    <!--Ai Generated Description-->
+                    <div class="col-md-12" style="margin-bottom: 10px;">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" @click="suggestBook(book)">
+                            AI-Generated Book Description
+                        </button>
+                    </div>
+                    <!-- Ai Summary -->
+                    <div class="row">
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" type="textarea" name="description" class="form-control"
+                                placeholder="Description" required v-model="book.description" />
+                        </div>
+                    </div>
 
                     <!-- Description -->
                     <div class="row">
@@ -77,19 +92,21 @@
                                 required v-model="book.language" />
                         </div>
                     </div>
-
                     <!-- Image Upload -->
-                    <div class="row">
+                    <div class="row" >
+                    <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
+                            
                         <div class="col-md-12 form-group mb-3">
                             <label for="imageFile" class="form-label">Image</label>
                             <input id="imageFile" type="file" name="imageFile" class="form-control"
                                 @change="handleFileUpload" accept="image/*" />
+                                
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Update" />
+                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToast()" value="Update" />
                         </div>
                     </div>
                 </form>
@@ -127,7 +144,7 @@ export default {
         this.fetchBook();
     },
     methods: {
-        showToat(){
+        showToast(){
             toast.success('Now Successfully updated!', {
                 autoClose: 1000,
             });
@@ -145,6 +162,17 @@ export default {
         },
         handleFileUpload(event) {
             this.image = event.target.files[0];
+        },
+
+        async suggestBook(book) {
+            const aiPrompt = `Give me a short summary of ${book.title} by ${book.author} with less than 50 words, with no formatting and make sure there is only content`
+            const result = await fetch(
+                `${ApiUrl}/api/chat?prompt=${aiPrompt}`
+            );
+
+            this.book.description = await result.text();
+            this.book.description = this.book.description.replace('```html', '')
+            this.book.description = this.book.description.replace('```', '')
         },
         updateBook() {
             const formData = new FormData();
@@ -165,7 +193,7 @@ export default {
                 method: 'PUT',
                 body: formData
             })
-                .then(response => response.json())
+                .then(response => response.text())
                 .then(data => {
                     console.log(data);
                     this.$router.push("/");
