@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ViewBooks from "@/views/ViewBooks.vue";
+import Home from "@/views/Home.vue";
 
 
 const router = createRouter({
@@ -7,6 +8,11 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "mylittlelibrary",
+      component: Home,
+    },
+    {
+      path: "/view",
       name: "home",
       component: ViewBooks,
     },
