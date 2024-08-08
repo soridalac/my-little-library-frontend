@@ -89,7 +89,7 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Update" />
+                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToast()" value="Update" />
                         </div>
                     </div>
                 </form>
@@ -127,7 +127,7 @@ export default {
         this.fetchBook();
     },
     methods: {
-        showToat(){
+        showToast(){
             toast.success('Now Successfully updated!', {
                 autoClose: 1000,
             });

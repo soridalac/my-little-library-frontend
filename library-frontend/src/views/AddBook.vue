@@ -5,7 +5,6 @@
             <div class="mx-auto w-25" style="max-width:100%;">
                 <h2 class="text-center mb-3">Add Book</h2>
                 <form @submit.prevent="addBook">
-
                     <!-- Title -->
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
@@ -52,9 +51,9 @@
                     </div>
 
                     <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" @click="suggestBook(book)">
-                                            AI Book Summary
-                                        </button>
+                        data-bs-target="#exampleModal" @click="suggestBook(book)">
+                        AI Book Summary
+                    </button>
                     <!-- Ai Summary -->
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
@@ -93,23 +92,23 @@
 
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <input class="btn btn-primary w-100" type="submit" @click="$event => showToat()" value="Submit" />
+                            <input class="btn btn-primary w-100" type="submit" value="Submit" />
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </main> 
+    </main>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue';
-import {ApiUrl} from '../constants.js'
+import { ApiUrl } from '../constants.js'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
-    name: 'AddBook',
+    name: 'addBook',
     components: {
         Navbar
     },
@@ -127,24 +126,29 @@ export default {
         };
     },
     methods: {
-        showToat(){
+        showToast() {
             toast.success('Now Successfully created!', {
                 autoClose: 1000,
             });
         },
+        handleSubmit() {
+            this.showToast();
+            setTimeout(() => {
+                this.$router.push('/');
+            }, 2000); //Delay for toast notification to be seen 
+        },
         handleFileUpload(event) {
             this.image = event.target.files[0];
         },
-    async suggestBook(book) {
-            // this.visibleAiPrompt = `Give me a short summary of ${book.title}, and give me 3 recommendations for books like it`;
-            const aiPrompt = `Give me a short summary of ${book.title} by ${book.author} with less than 50 words, with no formatting`
+        async suggestBook(book) {
+            const aiPrompt = `Give me a short summary of ${book.title} by ${book.author} with less than 50 words, with no formatting and make sure there is only content`
             const result = await fetch(
                 `${ApiUrl}/api/chat?prompt=${aiPrompt}`
             );
 
             this.book.description = await result.text();
-            this.book.description= this.book.description.replace('```html','')
-            this.book.description= this.book.description.replace('```','')
+            this.book.description = this.book.description.replace('```html', '')
+            this.book.description = this.book.description.replace('```', '')
         },
         addBook() {
             const formData = new FormData();
@@ -158,19 +162,22 @@ export default {
             if (this.image) {
                 formData.append('image', this.image);
             }
-
+            // submit the form data to ther server
             fetch(`${ApiUrl}/api/books`, {
                 method: 'POST',
                 body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    this.$router.push("/");
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            }).then(async response => {
+                if (response.ok) {
+                    this.handleSubmit();
+                    return;
+                }
+
+                const errorData = await response.text();
+                throw new Error(errorData || "Failed to add book");
+            }).catch(error => {
+                // Log and handle errors
+                console.error('Error:', error);
+            });
         }
     }
 };
