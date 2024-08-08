@@ -50,6 +50,21 @@
                             </select>
                         </div>
                     </div>
+                    <!--Ai Generated Description-->
+                    <div class="col-md-12" style="margin-bottom: 10px;">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" @click="suggestBook(book)">
+                            AI-Generated Book Description
+                        </button>
+                    </div>
+                    <!-- Ai Summary -->
+                    <div class="row">
+                        <div class="col-md-12 form-group mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" type="textarea" name="description" class="form-control"
+                                placeholder="Description" required v-model="book.description" />
+                        </div>
+                    </div>
 
                     <!-- Description -->
                     <div class="row">
