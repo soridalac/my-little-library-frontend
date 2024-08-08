@@ -49,11 +49,12 @@
                             </select>
                         </div>
                     </div>
-
-                    <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" @click="suggestBook(book)">
-                        AI Book Summary
-                    </button>
+                    <div class="col-md-12" style="margin-bottom: 10px;">
+                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" @click="suggestBook(book)">
+                            AI-Generated Book Description
+                        </button>
+                    </div>
                     <!-- Ai Summary -->
                     <div class="row">
                         <div class="col-md-12 form-group mb-3">
