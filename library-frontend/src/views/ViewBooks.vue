@@ -44,27 +44,29 @@
                         <thead>
                             <tr>
                                 <!-- <th scope="col">Id</th> -->
+                                <th scope="col">Image</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Author</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Published Year</th>
                                 <th scope="col">Genre</th>
                                 <th scope="col">Language</th>
-                                <th scope="col">Image</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="book in books" :key="book.id">
                                 <!-- <th scope="row">{{book.id}}</th> -->
+                                <td>
+                                    <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
+                                </td>
                                 <td>{{ book.title }}</td>
                                 <td>{{ book.author }}</td>
                                 <td>{{ book.description }}</td>
                                 <td>{{ book.publishedYear }}</td>
                                 <td>{{ book.genre }}</td>
                                 <td>{{ book.language }}</td>
-                                <td>
-                                    <img :src="book.image" alt="Book Image" style="width: 100px; height: auto;" />
-                                </td>
+                                
                                 <td>
                                     <div >
                                         <button type="button" class="btn btn-primary mx-2 d-flex justify-content-start align-items-center" data-bs-toggle="modal"
