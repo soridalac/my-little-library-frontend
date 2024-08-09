@@ -12,7 +12,7 @@ const router = createRouter({
     },
     {
       path: "/view",
-      name: "home",
+      name: "my books",
       component: ViewBooks,
     },
     {
@@ -24,6 +24,16 @@ const router = createRouter({
       path: "/api/books/:id",
       name: "edit",
       component: () => import("../views/UpdateBook.vue"),
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: () => import("../views/Login.vue"),
+    },
+    {
+      path: "/loout",
+      name: "logout",
+      component: () => import("../views/Logout.vue"),
     },
   ],
 });

@@ -1,0 +1,30 @@
+import axios from 'axios';
+
+// Function to get the CSRF token from a meta tag
+function getCsrfToken() {
+    const tokenElement = document.querySelector('meta[name="csrf-token"]');
+    if (tokenElement) {
+        return tokenElement.getAttribute('content');
+    } else {
+        console.error('CSRF token element not found');
+        return null;
+    }
+}
+
+// Function to handle logout
+export async function logout() {
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+        try {
+            await axios.post('/logout', {}, {
+                headers: {
+                    'X-CSRF-Token': csrfToken
+                }
+            });
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
+    } else {
+        console.error('CSRF token is missing');
+    }
+}
