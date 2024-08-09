@@ -66,14 +66,7 @@
                         </div>
                     </div>
 
-                    <!-- Description -->
-                    <div class="row">
-                        <div class="col-md-12 form-group mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <input id="description" type="text" name="description" class="form-control"
-                                placeholder="Description" required v-model="book.description" />
-                        </div>
-                    </div>
+                   
 
                     <!-- Published Year -->
                     <div class="row">
