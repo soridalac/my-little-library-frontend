@@ -1,7 +1,7 @@
 <template>
     <main>
         <Navbar />
-        <a href="/view">
+        <a href="/login">
 
             <body scroll="no" style="overflow-x: hidden; width: 100%; ">
                 <div class="product-container d-flex justify-content-start align-items-center">
