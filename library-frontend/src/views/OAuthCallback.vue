@@ -21,7 +21,7 @@ export default {
                 localStorage.setItem('username', response.data.username);
                 localStorage.setItem('email', response.data.email);
                 // Redirect to frontend homepage
-                router.push('/');
+                router.push('/view');
             } catch (error) {
                 console.error('Failed to fetch user information', error);
                 router.push('/login');
@@ -30,7 +30,7 @@ export default {
 
         onMounted(() => {
             const urlParams = new URLSearchParams(window.location.search);
-            const token = urlParams.get('token');
+            const token = urlParams.get('code');
             if (token) {
                 handleLoginSuccess(token);
             } else {
