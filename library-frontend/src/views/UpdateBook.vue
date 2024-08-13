@@ -189,7 +189,7 @@ export default {
                 .then(response => response.text())
                 .then(data => {
                     console.log(data);
-                    this.$router.push("/");
+                    this.$router.push("/view");
                 })
                 .catch(error => {
                     console.error('Error:', error);

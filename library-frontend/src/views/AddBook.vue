@@ -135,7 +135,7 @@ export default {
         handleSubmit() {
             this.showToast();
             setTimeout(() => {
-                this.$router.push('/');
+                this.$router.push('/view');
             }, 2000); //Delay for toast notification to be seen 
         },
         handleFileUpload(event) {
