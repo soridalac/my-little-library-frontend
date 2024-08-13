@@ -29,16 +29,49 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="text-center">View Book</h1>
-                    <form class="row justify-content-center" @submit.prevent="search(searchText)">
 
-                        <!-- Search button -->
-                        <input type="text" class="col-3 m-2" v-model="searchText" required
-                            placeholder="Please input the book name">
-                        <button class="btn btn-primary col-2 m-2">Search</button>
-
-                        <!-- Add button -->
+                    <div class="container mt-4">
+                        <form class="d-flex align-items-center" @submit.prevent="search(searchText, searchType)">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                                v-model="searchText">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
+                               <!-- Add button -->
                         <a href="/api/books" class="btn btn-primary col-2 m-2">Add Book</a>
-                    </form>
+                        </form>
+                     
+                   
+
+                    <div class="mt-2">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="searchOptions" value="title"
+                                v-model="searchType" checked>
+                            <label class="form-check-label">Title</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value='author' v-model="searchType"
+                                name="searchOptions">
+                            <label class="form-check-label">Author</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="genre" v-model="searchType"
+                                name="searchOptions">
+                            <label class="form-check-label">Genre</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="language" v-model="searchType"
+                                name="searchOptions">
+                            <label class="form-check-label">Language</label>
+                        </div>
+
+                    </div>
+                    </div>
+
+
+
+
 
                     <table class="table table-striped">
                         <thead>
@@ -51,7 +84,7 @@
                                 <th scope="col">Published Year</th>
                                 <th scope="col">Genre</th>
                                 <th scope="col">Language</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
@@ -66,20 +99,25 @@
                                 <td>{{ book.publishedYear }}</td>
                                 <td>{{ book.genre }}</td>
                                 <td>{{ book.language }}</td>
-                                
+
                                 <td>
-                                    <div >
-                                        <button type="button" class="btn btn-primary mx-2 d-flex justify-content-start align-items-center" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" @click="suggestBook(book)" style="width: 130px; margin: 5px"  >
+                                    <div>
+                                        <button type="button"
+                                            class="btn btn-primary mx-2 d-flex justify-content-start align-items-center"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            @click="suggestBook(book)" style="width: 130px; margin: 5px">
                                             <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
                                                 src="../assets/book2.svg" />
-                                                Discover
+                                            Discover
                                         </button>
-                                        <a class="btn btn-primary mx-2 d-flex justify-content-start align-items-center" :href="`/api/books/${book.id}`" style="width: 130px; margin: 5px">
+                                        <a class="btn btn-primary mx-2 d-flex justify-content-start align-items-center"
+                                            :href="`/api/books/${book.id}`" style="width: 130px; margin: 5px">
                                             <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
                                                 src="../assets/pencil.svg" />Edit</a>
 
-                                        <button class="btn btn-danger mx-2 d-flex justify-content-start align-items-center" type="delete" style="width: 130px; margin: 5px"
+                                        <button
+                                            class="btn btn-danger mx-2 d-flex justify-content-start align-items-center"
+                                            type="delete" style="width: 130px; margin: 5px"
                                             @click="$event => showToast(deleteBook(book.id))">
                                             <img style="margin-right: 15px; width: 14px; height: auto; filter: invert(100%)"
                                                 src="../assets/trash.svg" />
@@ -111,7 +149,11 @@ export default {
     data() {
         return {
             books: [],
+            searchType: 'title',
             searchText: '',
+            author: '',
+            genre: '',
+            language: '',
             visibleAiPrompt: '',
             aiResponse: ''
         }
@@ -163,13 +205,15 @@ export default {
             this.aiResponse = this.aiResponse.replace('```html', '')
             this.aiResponse = this.aiResponse.replace('```', '')
         },
-        async search(searchText) {
+        async search(searchText, searchType) {
+
             const result = await fetch(
-                `${ApiUrl}/api/books/search?title=${searchText}`
+                `${ApiUrl}/api/books/search?${searchType}=${searchText}`
             );
 
             this.books = await result.json();
         },
+
     }
 }
 </script>
